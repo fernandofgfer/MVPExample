@@ -10,7 +10,7 @@ import Foundation
 
 protocol SuperHeroesTablePresenterProtocol {
     func viewIsReady()
-    func viewNeedsForASuperHero(byIndex: Int) -> (String?, String?, String?)
+    func configureItemView(_ view: SuperHeroCellProtocol, at index: Int)
     func viewNeedsNumberOfSuperHeroes() -> Int
     func viewSelectASuperHero(byIndex: Int)
 }
@@ -26,8 +26,8 @@ class SuperHeroesTablePresenter{
     }
 
     func loadSuperHeroes(){
-        UseCase().getListOfSuperHeroes(url: "https://api.myjson.com/bins/bvyob") {(superHeoesArray) in
-            self.superHeroesReceived(superHeroesArray: superHeoesArray)
+        UseCase().getListOfSuperHeroes(url: "https://api.myjson.com/bins/bvyob") {[weak self](superHeoesArray) in
+            self?.superHeroesReceived(superHeroesArray: superHeoesArray)
         }
     }
 
@@ -40,6 +40,7 @@ class SuperHeroesTablePresenter{
 }
 
 extension SuperHeroesTablePresenter: SuperHeroesTablePresenterProtocol {
+
     func viewNeedsNumberOfSuperHeroes() -> Int {
         return superHeroesArray.count
     }
@@ -48,11 +49,12 @@ extension SuperHeroesTablePresenter: SuperHeroesTablePresenterProtocol {
         loadSuperHeroes()
     }
 
-    func viewNeedsForASuperHero(byIndex: Int) -> (String?, String?, String?) {
-        return superHeroesArray.indices.contains(byIndex) ? (superHeroesArray[byIndex].getPhoto(), superHeroesArray[byIndex].getName(), superHeroesArray[byIndex].getRealName()) : (nil, nil, nil)
-    }
-
     func viewSelectASuperHero(byIndex: Int) {
         view?.goToSuperHeroDetail(superHero: superHeroesArray[byIndex])
+    }
+
+    func configureItemView(_ view: SuperHeroCellProtocol, at index: Int) {
+        let superHero = superHeroesArray[index]
+        view.loadData(imageURL: superHero.getPhoto(), name: superHero.getName(), realName: superHero.getRealName())
     }
 }

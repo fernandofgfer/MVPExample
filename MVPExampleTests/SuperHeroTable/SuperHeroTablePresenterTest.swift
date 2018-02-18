@@ -62,24 +62,4 @@ class SuperHeroTablePresenterTest: XCTestCase {
 
         XCTAssertTrue(sut.loadSuperHeroCalled)
     }
-
-    func testViewNeedsForASuperHeroWithNotFoundIndexReturnAllNils() {
-        sut.superHeroesArray = SuperHeroData.superHeroEmpty
-
-        let result = sut.viewNeedsForASuperHero(byIndex: 5)
-
-        XCTAssertEqual(nil, result.0)
-        XCTAssertEqual(nil, result.1)
-        XCTAssertEqual(nil, result.2)
-    }
-
-    func testViewNeedsForASuperHeroWithASuperHeroReturnSuperHeroInfo() {
-        sut.superHeroesArray = SuperHeroData.superHeroArray
-
-        let result = sut.viewNeedsForASuperHero(byIndex: 1)
-
-        XCTAssertEqual(nil, result.0)
-        XCTAssertEqual(nil, result.1)
-        XCTAssertEqual(nil, result.2)
-    }
 }

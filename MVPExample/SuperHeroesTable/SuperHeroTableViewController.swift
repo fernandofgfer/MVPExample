@@ -47,8 +47,7 @@ extension SuperHeroesTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SuperHeroCell", for: indexPath) as! SuperHeroCell
-        let (image, name, realName) = presenter.viewNeedsForASuperHero(byIndex: indexPath.row)
-        cell.loadData(imageURL: image, name: name, realName: realName)
+        presenter.configureItemView(cell, at: indexPath.row)
         return cell
     }
 }

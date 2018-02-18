@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol SuperHeroCellProtocol {
+    func loadData(imageURL: String?, name: String?, realName: String?)
+}
+
 class SuperHeroCell: UITableViewCell {
 
     @IBOutlet var photoImageView: UIImageView!
@@ -24,7 +28,9 @@ class SuperHeroCell: UITableViewCell {
         photoImageView.layer.cornerRadius = photoImageView.frame.size.width / 2;
         photoImageView.clipsToBounds = true;
     }
+}
 
+extension SuperHeroCell: SuperHeroCellProtocol {
     func loadData(imageURL: String?, name: String?, realName: String?) {
         nameLabel.text = name
         realNameLabel.text = realName
@@ -33,4 +39,3 @@ class SuperHeroCell: UITableViewCell {
         }
     }
 }
-

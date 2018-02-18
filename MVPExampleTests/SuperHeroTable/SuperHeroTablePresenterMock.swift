@@ -11,6 +11,7 @@ import Foundation
 
 class SuperHeroTablePresenterMock: SuperHeroesTablePresenter {
     var loadSuperHeroCalled = false
+
     override func loadSuperHeroes() {
         loadSuperHeroCalled = true
     } //Unit test never have call to networking
